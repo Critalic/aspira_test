@@ -13,9 +13,4 @@ public class SportLeague {
     private String id;
     private Boolean top;
     private String name;
-    private String fullName;
-
-    public void setFullName(String regionName) {
-        this.fullName = regionName + " " + this.name;
-    }
 }

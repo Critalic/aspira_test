@@ -9,18 +9,17 @@ import com.aspira.parser.leonbets.model.match.MatchResponse;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class MapperUtil {
     public static MatchDto mapToResponse(MatchResponse matchResponse) {
 
-        Set<MarketDto> matchResponseDtoSet = matchResponse.getMarkets().stream()
+        List<MarketDto> matchResponseDtoList = matchResponse.getMarkets().stream()
                 .map(MapperUtil::mapToMarketCoeffDto)
-                .collect(Collectors.toSet());
+                .toList();
 
         return new MatchDto(matchResponse.getName(), matchResponse.getId(),
-                convertFromLongTimestamp(matchResponse.getKickoff()), matchResponseDtoSet);
+                convertFromLongTimestamp(matchResponse.getKickoff()), matchResponseDtoList);
     }
 
     private static ZonedDateTime convertFromLongTimestamp(String timestamp) {
@@ -30,9 +29,9 @@ public class MapperUtil {
     }
 
     private static MarketDto mapToMarketCoeffDto(MatchMarket matchMarket) {
-        Set<MarketCoeffDto> marketCoeffDtos = matchMarket.getRunners().stream()
+        List<MarketCoeffDto> marketCoeffDtos = matchMarket.getRunners().stream()
                 .map(runner -> new MarketCoeffDto(runner.getName(), runner.getPrice(), runner.getId()))
-                .collect(Collectors.toSet());
-        return new MarketDto(matchMarket.getName(), marketCoeffDtos);
+                .toList();
+        return new MarketDto(matchMarket.getName(), matchMarket.getId(), marketCoeffDtos);
     }
 }

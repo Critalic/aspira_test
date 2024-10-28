@@ -1,14 +1,16 @@
 package com.aspira.parser.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class MarketDto {
-    private String marketName;
-
-    private Set<MarketCoeffDto> marketCoefficients;
+    private final String marketName;
+    private final String marketId;
+    private final List<MarketCoeffDto> marketCoefficients;
 }

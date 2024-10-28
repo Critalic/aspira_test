@@ -7,7 +7,6 @@ import java.net.http.HttpRequest;
 
 public class HttpRequestFactory {
     private static final HttpRequest.Builder BASE_REQUEST_HEADERS = HttpRequest.newBuilder()
-//            TODO remake into config
             .header("accept", "*/*")
             .header("accept-language", "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7")
             .header("priority", "u=1, i")
@@ -48,12 +47,6 @@ public class HttpRequestFactory {
         URI uri = URI.create(URLConstants.BASE_URL + URLConstants.MATCH_REQUEST + URLConstants.MATCH_QUERY_PARAMETERS + matchId);
         return BASE_REQUEST_HEADERS
                 .uri(uri)
-                .build();
-    }
-
-    public HttpRequest getHttpRequestWithUri(String uri) {
-        return BASE_REQUEST_HEADERS
-                .uri(URI.create(uri))
                 .build();
     }
 }

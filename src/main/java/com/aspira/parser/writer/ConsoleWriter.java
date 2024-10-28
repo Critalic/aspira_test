@@ -13,9 +13,9 @@ public class ConsoleWriter {
     private static void printKeyValue(Set<LeagueDto> leagueDtoSet) {
         leagueDtoSet.forEach(leagueDto -> {
             System.out.println(leagueDto.getSportName() + ", " + leagueDto.getRegionName() + " " + leagueDto.getLeagueName());
-            leagueDto.getMatchDtoSet().forEach(matchDto -> {
+            leagueDto.getMatchDtoList().forEach(matchDto -> {
                 System.out.println("\t" + matchDto.getMatchName() + ", " + matchDto.getMatchDate() + ", " + matchDto.getMatchId());
-                matchDto.getMarketResponseDtoSet().forEach(marketDto -> {
+                matchDto.getMarketResponseDtoList().forEach(marketDto -> {
                     System.out.println("\t\t" + marketDto.getMarketName());
                     marketDto.getMarketCoefficients().forEach(marketCoefficient ->
                             System.out.println("\t\t\t" + marketCoefficient.getResultName() + ", " + marketCoefficient.getCoefficient()

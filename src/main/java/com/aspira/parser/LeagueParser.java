@@ -9,6 +9,7 @@ import com.aspira.parser.leonbets.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 
 import java.net.http.HttpRequest;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,15 +22,15 @@ public class LeagueParser {
         HttpRequest getLeagueInfoRequest = requestFactory.getLeagueRequest(league.getLeagueId());
         EventListResponse leagueInfo = communicationService.sendRequest(getLeagueInfoRequest, EventListResponse.class);
 
-        Set<MatchDto> matchDtoSet = leagueInfo.getEvents().stream()
+        List<MatchDto> matchDtoList = leagueInfo.getEvents().stream()
                 .limit(2)
                 .map(topMatch -> {
                     HttpRequest marketsInMatch = requestFactory.getMatchRequest(topMatch.getId());
                     MatchResponse matchResponse = communicationService.sendRequest(marketsInMatch, MatchResponse.class);
                     return MapperUtil.mapToResponse(matchResponse);
-                }).collect(Collectors.toSet());
+                }).toList();
 
-        league.setMatchDtoSet(matchDtoSet);
+        league.setMatchDtoList(matchDtoList);
     }
 
     public Set<LeagueDto> filterTopLeagues(SportResponse sportResponse) {
